@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RPL Systems Frontend</title>
+  <style>body{font-family:system-ui,Arial,sans-serif;margin:40px;max-width:800px}code{background:#f4f4f4;padding:2px 6px;border-radius:4px}</style>
+</head>
+<body>
+  <h1>RPL Systems</h1>
+  <p>Static placeholder is live. Replace this with your built frontend assets.</p>
+  <p>n8n base URL (from env): <code id="api"></code></p>
+  <script>
+    // nginx can't inject env, but this helps you remember where to wire your app config.
+    document.getElementById('api').textContent = (new URLSearchParams(location.search)).get('api') || 'http://localhost:5678';
+  </script>
+</body>
+</html>

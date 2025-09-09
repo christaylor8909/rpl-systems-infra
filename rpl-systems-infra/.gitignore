@@ -1,0 +1,10 @@
+# env & secrets
+.env
+.env.*
+# docker volumes (if you ever bind-mount locally)
+postgres_data/
+n8n_data/
+# node/yarn caches if you later add a Node build
+node_modules/
+npm-debug.log*
+yarn-error.log*
