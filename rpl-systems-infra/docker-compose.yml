@@ -23,7 +23,7 @@ services:
     image: docker.n8n.io/n8nio/n8n:latest
     restart: unless-stopped
     ports:
-      - "5678:5678" # keep for local access; Cloudflare Tunnel handles public
+      - "1000:5678" # RPL Systems port allocation - n8n primary
     environment:
       GENERIC_TIMEZONE: ${GENERIC_TIMEZONE}
       TZ: ${TZ}
@@ -57,11 +57,22 @@ services:
     image: nginx:alpine
     restart: unless-stopped
     ports:
-      - "8080:80" # local access to your placeholder/static site
+      - "1004:80" # RPL Systems port allocation - frontend
     environment:
       RPL_N8N_BASE_URL: ${RPL_N8N_BASE_URL}
     volumes:
       - ./rpl-frontend/public:/usr/share/nginx/html:ro
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    restart: unless-stopped
+    ports:
+      - "1002:80" # RPL Systems port allocation - pgAdmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    depends_on:
+      - postgres
 
   cloudflared:
     image: cloudflare/cloudflared:latest
@@ -72,6 +83,7 @@ services:
     depends_on:
       - n8n
       - rpl-frontend
+      - pgadmin
 
 volumes:
   n8n_data:
